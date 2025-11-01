@@ -1,0 +1,99 @@
+body {
+  font-family: "Cairo", sans-serif;
+  background: linear-gradient(135deg, #e0cba8, #f5f0e4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.game-container {
+  text-align: center;
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  width: 350px;
+}
+
+h1 {
+  color: #4b3d25;
+  margin-bottom: 10px;
+}
+
+.controls {
+  margin-bottom: 15px;
+}
+
+button {
+  background: #4b3d25;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #6a5636;
+}
+
+select {
+  padding: 5px;
+  border-radius: 8px;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  grid-template-rows: repeat(5, 60px);
+  justify-content: center;
+  margin: 15px auto;
+  gap: 4px;
+}
+
+.cell {
+  width: 60px;
+  height: 60px;
+  background-color: #d8b98b;
+  border: 2px solid #4b3d25;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease;
+}
+
+.cell:hover {
+  transform: scale(1.05);
+}
+
+.piece {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.p1 {
+  background-color: #222;
+  box-shadow: 0 0 8px #0006;
+}
+
+.p2 {
+  background-color: #f4f4f4;
+  border: 1px solid #555;
+}
+
+.selected {
+  background-color: #b18c57;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #4b3d25;
+}
