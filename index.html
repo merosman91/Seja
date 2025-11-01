@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 لعبة السيجة السودانية</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-container">
+    <h1>🎮 السيجة السودانية</h1>
+
+    <div class="controls">
+      <label for="difficulty">🎯 درجة الصعوبة:</label>
+      <select id="difficulty">
+        <option value="easy">سهل</option>
+        <option value="medium" selected>متوسط</option>
+        <option value="hard">صعب</option>
+      </select>
+      <button id="startBtn">ابدأ اللعبة</button>
+    </div>
+
+    <div class="scoreboard">
+      <div>⚫ لاعب 1 (أسود): <span id="score1">10</span></div>
+      <div>⚪ لاعب 2 (أبيض): <span id="score2">10</span></div>
+    </div>
+
+    <div id="board"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+  </html>
