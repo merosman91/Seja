@@ -1,31 +1,56 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎮 لعبة السيجة السودانية</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>السيجة — اللعبة السودانية</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="game-container">
-    <h1>🎮 السيجة السودانية</h1>
+  <div class="container">
+    <header>
+      <h1>🎮 السيجة السودانية</h1>
+      <div class="controls">
+        <label for="difficulty">درجة الصعوبة:</label>
+        <select id="difficulty">
+          <option value="easy">سهل</option>
+          <option value="medium" selected>متوسط</option>
+          <option value="hard">صعب</option>
+        </select>
 
-    <div class="controls">
-      <label for="difficulty">🎯 درجة الصعوبة:</label>
-      <select id="difficulty">
-        <option value="easy">سهل</option>
-        <option value="medium" selected>متوسط</option>
-        <option value="hard">صعب</option>
-      </select>
-      <button id="startBtn">ابدأ اللعبة</button>
-    </div>
+        <button id="startBtn">ابدأ / إعادة</button>
+        <button id="swapBtn" title="اللعب ضد صديق محلي">العب محليًا</button>
+      </div>
+    </header>
 
-    <div class="scoreboard">
-      <div>⚫ لاعب 1 (أسود): <span id="score1">10</span></div>
-      <div>⚪ لاعب 2 (أبيض): <span id="score2">10</span></div>
-    </div>
+    <section class="status">
+      <div class="player" id="p1panel">
+        <div class="dot black"></div>
+        <div>اللاعب الأسود</div>
+        <div class="score"><span id="score1">10</span> قطعة</div>
+      </div>
 
-    <div id="board"></div>
+      <div class="center-info">
+        <div id="turnInfo">دور: اللاعب الأسود</div>
+        <div class="sound-toggle">
+          <label><input type="checkbox" id="soundToggle" checked> تشغيل الأصوات</label>
+        </div>
+      </div>
+
+      <div class="player" id="p2panel">
+        <div class="dot white"></div>
+        <div>اللاعب الأبيض</div>
+        <div class="score"><span id="score2">10</span> قطعة</div>
+      </div>
+    </section>
+
+    <main>
+      <div id="board" class="board"></div>
+    </main>
+
+    <footer>
+      <small>قواعد الأكل: تأكل القطع المتواجدة مباشرة بجانب الخانة التي تنتقل إليها (جميع الاتجاهات).</small>
+    </footer>
   </div>
 
   <script src="script.js"></script>
