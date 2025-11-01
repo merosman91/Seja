@@ -98,23 +98,28 @@ function calculateAvailableMoves(idx){
   return moves;
 }
 
-// يحدد إن كانت الحركة من src إلى dst ستؤدي لأكل وفق القاعدة: بعد الخانة الفارغة (dst) مباشرة في نفس الاتجاه توجد قطعة للخصم
-function willCaptureUponMove(src, dst){
+function willCaptureUponMove(src, dst) {
   if (src === null) return false;
-  const sr = Math.floor(src/5), sc = src%5;
-  const dr = Math.floor(dst/5), dc = dst%5;
-  const drow = dr - sr, dcol = dc - sc;
-  // يجب أن تكون المجاورة (4 اتجاهات فقط)
-  if (Math.abs(drow) + Math.abs(dcol) !== 1) return false;
-
-  // الخانة بعد dst في نفس الاتجاه:
-  const br = dr + drow, bc = dc + dcol;
-  if (br < 0 || br >=5 || bc < 0 || bc >=5) return false;
-  const beyondIdx = br*5 + bc;
+  const sr = Math.floor(src / 5), sc = src % 5;
+  const dr = Math.floor(dst / 5), dc = dst % 5;
   const mover = grid[src];
   const opponent = mover === 'p1' ? 'p2' : 'p1';
+
+  // الاتجاه
+  const drow = dr - sr;
+  const dcol = dc - sc;
+
+  // التأكد من أن الحركة في 4 اتجاهات فقط
+  if (Math.abs(drow) + Math.abs(dcol) !== 1) return false;
+
+  // نتحقق من الخانة التالية بعد وجهة الحركة (dst)
+  const br = dr + drow, bc = dc + dcol;
+  if (br < 0 || br >= 5 || bc < 0 || bc >= 5) return false;
+  const beyondIdx = br * 5 + bc;
+
+  // قاعدة الأكل الجديدة: الخصم ملاصق مباشرة بدون خانة فارغة
   return grid[beyondIdx] === opponent;
-}
+  }
 
 // التعامل مع النقر على خلية
 function onCellClick(i){
