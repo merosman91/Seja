@@ -1,99 +1,103 @@
-body {
-  font-family: "Cairo", sans-serif;
-  background: linear-gradient(135deg, #e0cba8, #f5f0e4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+:root{
+  --bg1:#efe6d4;
+  --card:#fff;
+  --accent:#4b3d25;
+  --sand:#d8b98b;
+  --cell:#cfae79;
 }
 
-.game-container {
-  text-align: center;
-  background: #fff;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  width: 350px;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: "Cairo", "Segoe UI", Tahoma, sans-serif;
+  background: linear-gradient(135deg,var(--bg1),#f7f3ea);
+  color:var(--accent);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:20px;
 }
 
-h1 {
-  color: #4b3d25;
-  margin-bottom: 10px;
+.container{
+  width:420px;
+  background:var(--card);
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  padding:16px;
 }
 
-.controls {
-  margin-bottom: 15px;
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
 }
 
-button {
-  background: #4b3d25;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 10px;
-  cursor: pointer;
+h1{margin:0;font-size:20px}
+
+.controls{display:flex;align-items:center;gap:8px}
+.controls select{padding:6px;border-radius:8px;border:1px solid #d0c0a8}
+.controls button{
+  background:var(--accent);
+  color:white;border:none;padding:6px 10px;border-radius:8px;cursor:pointer;
+}
+.controls button:hover{opacity:0.95}
+
+.status{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:8px 4px;
 }
 
-button:hover {
-  background: #6a5636;
+.player{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-weight:600;
+  min-width:95px;
 }
 
-select {
-  padding: 5px;
-  border-radius: 8px;
+.dot{
+  width:20px;height:20px;border-radius:50%;margin-bottom:6px;border:2px solid #333;
+}
+.dot.black{background:#222}
+.dot.white{background:#f4f4f4}
+
+.score{font-size:13px;color:#5a482f;margin-top:4px}
+
+.center-info{text-align:center}
+#turnInfo{font-weight:700;margin-bottom:6px}
+.sound-toggle{font-size:12px;color:#555}
+
+.board{
+  display:grid;
+  grid-template-columns:repeat(5,64px);
+  grid-template-rows:repeat(5,64px);
+  gap:6px;
+  justify-content:center;
+  margin:10px auto 14px;
 }
 
-#board {
-  display: grid;
-  grid-template-columns: repeat(5, 60px);
-  grid-template-rows: repeat(5, 60px);
-  justify-content: center;
-  margin: 15px auto;
-  gap: 4px;
+.cell{
+  width:64px;height:64px;background:linear-gradient(180deg,var(--sand),var(--cell));
+  border-radius:10px;border:2px solid rgba(75,61,37,0.25);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;
+  transition:transform .18s ease, box-shadow .18s;
 }
+.cell:hover{transform:translateY(-4px);box-shadow:0 8px 18px rgba(0,0,0,0.12)}
 
-.cell {
-  width: 60px;
-  height: 60px;
-  background-color: #d8b98b;
-  border: 2px solid #4b3d25;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s ease;
+.piece{
+  width:44px;height:44px;border-radius:50%;transition:transform .25s ease,opacity .25s;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 10px rgba(0,0,0,0.12);
 }
+.p1{background:#222}
+.p2{background:#f9f9f9;border:1px solid #666}
 
-.cell:hover {
-  transform: scale(1.05);
-}
+.cell.selected{outline:3px solid rgba(75,61,37,0.18);transform:scale(1.03)}
 
-.piece {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  transition: 0.3s;
-}
-
-.p1 {
-  background-color: #222;
-  box-shadow: 0 0 8px #0006;
-}
-
-.p2 {
-  background-color: #f4f4f4;
-  border: 1px solid #555;
-}
-
-.selected {
-  background-color: #b18c57;
-}
-
-.scoreboard {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-  font-weight: bold;
-  color: #4b3d25;
-}
+footer{font-size:12px;color:#6b5841;text-align:center;padding-top:6px}
