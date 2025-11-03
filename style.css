@@ -1,104 +1,101 @@
 :root{
-  /* ألوان مستوحاة من التراث السوداني */
-  --bg1: #fbf8f2;
-  --card: #fff9f4;
+  --bg: #fbf8f2;
+  --card: #fff;
   --accent: #3f2f19;
-  --sand1: #edd9b9;
-  --sand2: #d8b189;
-  --cell: #e7c9a0;
-  --legal: #cde9ca;
+  --muted: #6b553f;
+  --primary: #8d5c2a;
+  --soft: #efe6d4;
+  --legal: #cfe8ca;
   --capture: #9fe07a;
   --selected: #ffe5b8;
   --xcell: #d6c0b0;
-  --muted: #6b553f;
-  --shadow: rgba(0,0,0,0.12);
-  --max-board-width: 92vmin; /* board will scale within this */
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;width:100%;overflow-x:hidden;font-family:"Cairo",sans-serif;background:linear-gradient(135deg,var(--bg1),#f2ecd9);color:var(--accent)}
-.outer{display:flex;justify-content:center;align-items:center;padding:18px}
-.wrap{width:100%;max-width:1100px;background:var(--card);border-radius:14px;padding:18px;box-shadow:0 12px 30px var(--shadow)}
+/* base */
+*{box-sizing:border-box}
+html,body{height:100%;width:100%;margin:0;padding:0;font-family:"Cairo",sans-serif;background:linear-gradient(135deg,var(--bg),#f2ecd9);color:var(--accent);overflow-x:hidden}
+.app{max-width:1200px;margin:18px auto;padding:12px}
+.header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,#cfa36b,#8d5c2a);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;box-shadow:0 6px 14px rgba(0,0,0,0.12)}
+.title{font-size:20px;font-weight:800}
+.subtitle{font-size:12px;color:var(--muted)}
+.controls-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.control{padding:8px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:var(--soft);cursor:pointer}
+.primary{background:linear-gradient(90deg,var(--primary),#b6763f);color:white;border:none}
+.toggle.on{box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+.toggle.off{opacity:0.7}
 
-/* رأس أنيق */
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.title-block{display:flex;align-items:center;gap:12px}
-.logo-mark{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#cfa36b,#8d5c2a);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;box-shadow:0 6px 12px rgba(0,0,0,0.12)}
-.game-title{font-size:20px;font-weight:800}
-.game-sub{font-size:12px;color:var(--muted);margin-top:2px}
-
-.controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.controls select, .btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:white;cursor:pointer}
-.btn.toggle{min-width:92px}
-.btn.toggle.on{background:linear-gradient(90deg,#f0efec,#efe6d4);box-shadow:0 4px 8px rgba(0,0,0,0.06)}
-.btn.toggle.off{background:#f3f3f3;opacity:0.8}
-
-/* شريط الحالة والنقاط */
-.statusbar{display:flex;align-items:center;justify-content:space-between;margin-top:12px;margin-bottom:10px;gap:12px}
-.player-info{display:flex;flex-direction:column;align-items:center;gap:4px}
-.player-name{font-weight:700}
-.player-score{font-size:20px;font-weight:900;color:var(--accent);background:linear-gradient(90deg,#fff,#f7f2e6);padding:6px 10px;border-radius:10px;box-shadow:0 6px 12px rgba(0,0,0,0.06)}
-.player-label{font-size:12px;color:var(--muted)}
+/* status */
+.main{margin-top:12px}
+.status-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.player-card{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:120px}
 .dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(0,0,0,0.06)}
-.dot.black{background:#111}.dot.white{background:#fafafa;border:1px solid #bdbdbd}
+.dot.black{background:#111}
+.dot.white{background:#fafafa;border:1px solid #bdbdbd}
+.pname{font-weight:700}
+.score-wrap{display:flex;align-items:center;gap:8px}
+.score{background:linear-gradient(90deg,#fff,#f7f2e6);padding:6px 10px;border-radius:10px;font-weight:900;font-size:20px;box-shadow:0 8px 16px rgba(0,0,0,0.06)}
+.score-label{font-size:12px;color:var(--muted)}
+.center-info{text-align:center}
+.turn{font-weight:800}
+.hint{font-size:13px;color:var(--muted);margin-top:6px}
 
-/* اللوح: سيعتمد حجم الخانة على متغير CSS --cell-size */
-.board-wrap{display:flex;justify-content:center}
+/* board area responsive */
+.board-area{display:flex;justify-content:center;align-items:center;padding:8px}
 .board{
-  --cell-size: calc(var(--max-board-width) / 9);
-  width: calc(var(--cell-size) * 9 + 16px);
-  max-width: var(--max-board-width);
+  --max-size: min(90vmin, 760px);
+  width: calc(var(--max-size));
+  height: calc(var(--max-size) * (5/9)); /* keep aspect ratio 5 rows / 9 cols */
+  max-width:100%;
   display:grid;
-  grid-template-columns: repeat(9, var(--cell-size));
-  grid-auto-rows: var(--cell-size);
+  grid-template-columns: repeat(9, 1fr);
+  grid-auto-rows: calc((100%)/5);
   gap:8px;
   padding:12px;
-  margin:8px auto;
-  background:linear-gradient(180deg,var(--sand1),var(--sand2));
   border-radius:12px;
-  box-shadow: inset 0 4px 10px rgba(0,0,0,0.04);
+  background:linear-gradient(180deg,#f0e4c9,#e7cfa6);
+  box-shadow: inset 0 6px 16px rgba(0,0,0,0.04);
+  min-width:320px;
 }
 
-/* خانة */
-.cell{border-radius:10px;background:linear-gradient(180deg,#efd8b2,#e2c18e);border:2px solid rgba(63,47,25,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:transform .12s,box-shadow .12s,background .12s}
-.cell:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(0,0,0,0.08)}
-
-/* زوجية حجم القطع */
-.piece{width:calc(var(--cell-size) * 0.7);height:calc(var(--cell-size) * 0.7);border-radius:50%;box-shadow:0 8px 18px rgba(0,0,0,0.12)}
+/* cells and pieces */
+.cell{border-radius:10px;background:linear-gradient(180deg,#efd8b2,#e2c18e);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:transform .12s,box-shadow .12s,background .12s}
+.cell:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,0.08)}
+.piece{width:70%;height:70%;border-radius:50%;box-shadow:0 8px 20px rgba(0,0,0,0.12)}
 .p1{background:linear-gradient(180deg,#0b0b0b,#333)}
 .p2{background:linear-gradient(180deg,#fff,#e8e8e8);border:1px solid #bdbdbd}
-
-/* التمييز */
 .cell.legal{background:var(--legal)}
 .cell.capture{background:var(--capture)}
-.cell.selected{background:var(--selected);box-shadow:0 14px 26px rgba(0,0,0,0.12)}
-
-/* مربع X */
+.cell.selected{background:var(--selected);box-shadow:0 12px 26px rgba(0,0,0,0.12)}
 .cell.xcell{background:linear-gradient(180deg,var(--xcell),#c9b49f)}
-.cell.xcell::after{content:"X";font-weight:800;color:rgba(107,79,59,0.9);font-size:calc(var(--cell-size) * 0.28);position:absolute}
+.cell.xcell::after{content:"X";font-weight:800;color:rgba(107,79,59,0.9);font-size:18px;position:absolute}
 
-/* وسائط */
-.legend{display:flex;gap:12px;justify-content:center;margin:10px 0;color:var(--muted);flex-wrap:wrap}
-.leg-box{display:inline-block;width:18px;height:18px;border-radius:4px;border:1px solid rgba(0,0,0,0.06);vertical-align:middle;margin-inline-start:6px}
-.leg-box.legal{background:var(--legal)}.leg-box.capture{background:var(--capture)}.leg-box.selected{background:var(--selected)}.leg-box.xcell{background:var(--xcell);display:flex;align-items:center;justify-content:center;font-weight:800;color:#6b4f3b}
+/* legend, instructions, footer */
+.legend{display:flex;gap:12px;justify-content:center;margin:12px 0;color:var(--muted);flex-wrap:wrap}
+.box{display:inline-block;width:18px;height:18px;border-radius:4px;border:1px solid rgba(0,0,0,0.06);vertical-align:middle;margin-right:6px}
+.box.legal{background:var(--legal)}.box.capture{background:var(--capture)}.box.selected{background:var(--selected)}.box.xcell{background:var(--xcell);display:flex;align-items:center;justify-content:center;font-weight:800;color:#6b4f3b}
+.instructions{background:#fff7e9;border-radius:10px;padding:12px;color:var(--muted);font-size:14px;margin-top:12px}
+.instructions h3{margin:0 0 8px 0}
+.sound-desc{margin-top:8px;font-size:13px;color:var(--muted)}
 
-/* تعليمات */
-.instructions{background:#fff7e9;border-radius:10px;padding:12px;color:var(--muted);font-size:14px;margin-top:10px}
-.instructions h3{margin:0 0 6px 0}
-
-/* التذييل */
+/* overlay */
+.overlay{position:fixed;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:50}
+.hidden{display:none}
+.overlay-card{background:var(--card);padding:18px;border-radius:12px;text-align:center;min-width:260px}
+.overlay-msg{font-weight:800;margin-bottom:8px}
+.countdown{color:var(--muted);margin-bottom:12px}
 .footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted);font-size:13px;flex-wrap:wrap}
-.footer a{color:var(--accent);text-decoration:none;font-weight:700}
 
-/* استجابة */
-@media (max-width:900px){
-  .board{--cell-size: calc((100vw - 64px) / 9)} /* يقلل عرض اللوح على الشاشات الصغيرة */
-  .game-title{font-size:18px}
-  .game-sub{font-size:11px}
-  .controls select, .btn{padding:6px 8px;font-size:13px}
+/* responsive tweaks */
+@media (max-width:760px){
+  .board{--max-size: min(90vmin, 640px)}
+  .title{font-size:18px}
+  .controls-bar .control{padding:6px 8px;font-size:13px}
+  .score{font-size:18px}
 }
-@media (max-width:520px){
-  .board{--cell-size: calc((100vw - 48px) / 9)}
-  .player-score{font-size:16px;padding:6px 8px}
-  .logo-mark{width:36px;height:36px}
-              }
+@media (max-width:420px){
+  .controls-bar{gap:6px}
+  .board{min-width:260px}
+  .cell{border-radius:8px}
+         }
