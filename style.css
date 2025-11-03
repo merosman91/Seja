@@ -9,6 +9,7 @@
   --capture: #9be07a;
   --selected: #ffdca1;
   --xcell: #d6c0b0;
+  --muted: #6b553f;
 }
 
 /* منع السحب الجانبي ولتوسيط المحتوى */
@@ -24,11 +25,11 @@ body {
   color: var(--accent);
 }
 
-/* احفظ عرض اللوح مع جعل الصفحة مركزية وقابلة للعرض على الموبايل */
+/* حاوية مركزية */
 .outer { width: 100%; display:flex; justify-content:center; }
 .wrap {
   width: 100%;
-  max-width: 820px; /* يكفي لعرض 9 أعمدة */
+  max-width: 920px;
   background: var(--card);
   border-radius: 14px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
@@ -54,8 +55,8 @@ h1 { margin: 0; font-size: 20px; flex: 1; text-align: center; }
 /* اللوح: 9 أعمدة × 5 صفوف */
 .board {
   display: grid;
-  grid-template-columns: repeat(9, 64px);
-  grid-template-rows: repeat(5, 64px);
+  grid-template-columns: repeat(9, 72px);
+  grid-template-rows: repeat(5, 72px);
   gap: 8px;
   justify-content: center;
   margin: 8px auto 12px;
@@ -67,7 +68,7 @@ h1 { margin: 0; font-size: 20px; flex: 1; text-align: center; }
 
 /* الخانات */
 .cell {
-  width:64px; height:64px; border-radius:10px;
+  width:72px; height:72px; border-radius:10px;
   background: linear-gradient(180deg, #ecd9b6, #e3c391);
   border:2px solid rgba(63,47,25,0.08);
   display:flex; align-items:center; justify-content:center; position:relative; cursor:pointer;
@@ -76,7 +77,7 @@ h1 { margin: 0; font-size: 20px; flex: 1; text-align: center; }
 .cell:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
 
 /* القطع */
-.piece { width:46px; height:46px; border-radius:50%; box-shadow:0 8px 14px rgba(0,0,0,0.12); }
+.piece { width:52px; height:52px; border-radius:50%; box-shadow:0 8px 14px rgba(0,0,0,0.12); }
 .p1 { background: linear-gradient(180deg,#0b0b0b,#333); }
 .p2 { background: linear-gradient(180deg,#ffffff,#e8e8e8); border:1px solid #bdbdbd; }
 
@@ -86,8 +87,8 @@ h1 { margin: 0; font-size: 20px; flex: 1; text-align: center; }
 .cell.selected { background: var(--selected); box-shadow: 0 12px 22px rgba(0,0,0,0.12); }
 
 /* مربع الفاصل X */
-.cell.xcell { background: linear-gradient(180deg,var(--xcell),#c9b49f); cursor: default; }
-.cell.xcell::after { content: "X"; font-weight:800; color:#6b4f3b; font-size:20px; }
+.cell.xcell { background: linear-gradient(180deg,var(--xcell),#c9b49f); }
+.cell.xcell::after { content: "X"; font-weight:800; color:rgba(107,79,59,0.9); font-size:20px; position:absolute; }
 
 /* وسائط المساعدة */
 .legend { display:flex; gap:12px; justify-content:center; margin-bottom:10px; color:#5a4632; flex-wrap:wrap; }
@@ -95,15 +96,15 @@ h1 { margin: 0; font-size: 20px; flex: 1; text-align: center; }
 .leg-box.legal { background:var(--legal); } .leg-box.capture { background:var(--capture); } .leg-box.selected { background:var(--selected); } .leg-box.xcell { background:var(--xcell); display:flex; align-items:center; justify-content:center; font-weight:800; color:#6b4f3b; }
 
 /* التعليمات والتذييل */
-.instructions { background:#fff7e9; border-radius:10px; padding:12px; color:#4b3523; font-size:14px; margin-top:8px; }
+.instructions { background:#fff7e9; border-radius:10px; padding:12px; color:var(--muted); font-size:14px; margin-top:8px; }
 .instructions h3 { margin:0 0 6px 0; }
-.footer { text-align:center; color:#6b553f; font-size:13px; margin-top:10px; }
+.footer { text-align:center; color:var(--muted); font-size:13px; margin-top:10px; }
 .footer a { color:var(--accent); text-decoration:none; font-weight:700; }
 
 /* قابلية الاستجابة */
-@media (max-width:720px){
-  .board { grid-template-columns: repeat(9, 44px); grid-template-rows: repeat(5, 44px); gap:6px; padding:8px; }
-  .cell { width:44px; height:44px; }
-  .piece { width:34px; height:34px; }
+@media (max-width:820px){
+  .board { grid-template-columns: repeat(9, 54px); grid-template-rows: repeat(5, 54px); gap:6px; padding:8px; }
+  .cell { width:54px; height:54px; }
+  .piece { width:40px; height:40px; }
   .wrap { padding:12px; }
-           }
+}
