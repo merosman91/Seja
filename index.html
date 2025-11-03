@@ -3,14 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>السيجة — لعبة سودانية (9×5)</title>
+  <title>لعبة سيجة السودانية — Sudanese Seega Game</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="outer">
     <div class="wrap">
       <header class="topbar">
-        <h1 id="title">🎮 السيجة السودانية</h1>
+        <div class="title-block">
+          <div class="logo-mark">◉</div>
+          <div>
+            <div id="gameTitle" class="game-title">لعبة سيجة السودانية</div>
+            <div id="gameSubtitle" class="game-sub">Sudanese Seega Game</div>
+          </div>
+        </div>
 
         <div class="controls">
           <label for="langSelect" id="langLabel">اللغة</label>
@@ -20,68 +26,71 @@
           </select>
 
           <label for="difficulty" id="diffLabel">درجة الصعوبة</label>
-          <select id="difficulty">
+          <select id="difficulty" aria-label="difficulty">
             <option value="easy">سهل / Easy</option>
             <option value="medium" selected>متوسط / Medium</option>
             <option value="hard">صعب / Hard</option>
           </select>
 
-          <button id="startBtn">ابدأ / Start</button>
-          <button id="swapBtn" title="Toggle local / vs computer">العب محليًا / Local</button>
+          <button id="startBtn" class="btn">ابدأ / Start</button>
 
-          <label class="sound-label"><input type="checkbox" id="soundToggle" checked> <span id="soundLabel">تشغيل الأصوات</span></label>
+          <button id="aiToggleBtn" class="btn toggle on" title="Toggle AI">AI: On</button>
+          <button id="soundToggleBtn" class="btn toggle on" title="Toggle Sound">Sound: On</button>
         </div>
       </header>
 
       <section class="statusbar">
-        <div class="player p-left">
-          <div class="dot black"></div>
-          <div class="name" id="p1name">اللاعب الأسود</div>
-          <div class="score"><span id="score1">22</span> <span id="piecesLabel">قطعة</span></div>
+        <div class="left-info">
+          <div class="player-info player-left">
+            <div class="dot black"></div>
+            <div class="player-name" id="p1name">اللاعب الأسود</div>
+            <div class="player-score" id="score1">22</div>
+            <div class="player-label" id="scoreLabel1">قطعة</div>
+          </div>
         </div>
 
-        <div class="center">
-          <div id="turnInfo">دور: اللاعب الأسود</div>
-          <div id="hint" class="hint">اختر قطعة لتحريكها — سيتم تمييز الخانات المسموح بها</div>
+        <div class="center-info">
+          <div id="turnInfo" class="turnInfo">دور: اللاعب الأسود</div>
+          <div id="hint" class="hint">اختر قطعة لتحريكها — ستُبرز الحركات المسموح بها</div>
         </div>
 
-        <div class="player p-right">
-          <div class="dot white"></div>
-          <div class="name" id="p2name">اللاعب الأبيض</div>
-          <div class="score"><span id="score2">22</span> <span id="piecesLabel2">قطعة</span></div>
+        <div class="right-info">
+          <div class="player-info player-right">
+            <div class="dot white"></div>
+            <div class="player-name" id="p2name">اللاعب الأبيض</div>
+            <div class="player-score" id="score2">22</div>
+            <div class="player-label" id="scoreLabel2">قطعة</div>
+          </div>
         </div>
       </section>
 
       <main>
-        <div id="board" class="board" aria-label="game board"></div>
+        <div id="boardWrap" class="board-wrap">
+          <div id="board" class="board" aria-label="game board"></div>
+        </div>
 
         <div class="legend">
           <div><span class="leg-box legal"></span> <span id="legMove">حركة عادية</span></div>
-          <div><span class="leg-box capture"></span> <span id="legJump">حركة تؤدي لقفزة/أكل</span></div>
+          <div><span class="leg-box capture"></span> <span id="legJump">قفزة/أكل</span></div>
           <div><span class="leg-box selected"></span> <span id="legSel">قطعة مختارة</span></div>
-          <div><span class="leg-box xcell">X</span> <span id="legX">مربع مركزي</span></div>
+          <div><span class="leg-box xcell">X</span> <span id="legX">المربع المركزي</span></div>
         </div>
 
         <div class="instructions" id="instructionsBox">
           <h3 id="howTitle">كيف تلعب</h3>
           <ol id="howList">
-            <li>في البداية لكل لاعب 22 قطعة (صفان كاملان من 9 قطع ثم صف ثالث 4 قطع).</li>
-            <li>اللوح مكوّن من 9 أعمدة × 5 صفوف والمربع الأوسط في الصف الثالث يحمل علامة X ويمثل المركز.</li>
-            <li>التحرك في **أربع اتجاهات فقط** (أعلى/أسفل/يسار/يمين) إلى مربع فارغ مجاور.</li>
-            <li><strong>قواعد الأكل (قفزة):</strong> إذا كانت أمام قطعتك قطعة خصم ملاصقة (لا توجد خانة فارغة بينكما) وخلف قطعة الخصم مربع فارغ → يمكنك القفز إلى ذلك المربع الفارغ وإزالة قطعة الخصم.</li>
-            <li>بعد القفزة، إن توفرت قفزات إضافية من موقعك الجديد فستُنفَّذ تلقائيًا في نفس الدور.</li>
-            <li>الفائز: من يبقى لديه قطع أو عندما لا تبقى حركات.</li>
+            <!-- سيتم تعبئتها ديناميكياً حسب اللغة -->
           </ol>
         </div>
       </main>
 
       <footer class="footer">
-        <div id="credit">تصميم: <a href="mailto:merghanigasimosman@gmail.com" id="creditLink">ميرغني أبوالقاسم عثمان</a></div>
-        <div class="small" id="disableNote">يمكنك تعطيل الأصوات من خانة "تشغيل الأصوات" أعلاه.</div>
+        <div id="credit">تصميم: <a id="creditLink" href="mailto:merghanigasimosman@gmail.com">ميرغني أبوالقاسم عثمان</a></div>
+        <div id="disableNote" class="small">يمكنك كتم الأصوات بواسطة زر "Sound".</div>
       </footer>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-            </html>
+                                  </html>
