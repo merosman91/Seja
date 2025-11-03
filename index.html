@@ -3,94 +3,96 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>لعبة سيجة السودانية — Sudanese Seega Game</title>
+  <title>لعبة سيجة السودانية — Sudanese Seega Game (v1.0)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="outer">
-    <div class="wrap">
-      <header class="topbar">
-        <div class="title-block">
-          <div class="logo-mark">◉</div>
-          <div>
-            <div id="gameTitle" class="game-title">لعبة سيجة السودانية</div>
-            <div id="gameSubtitle" class="game-sub">Sudanese Seega Game</div>
-          </div>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">◉</div>
+        <div class="titles">
+          <div id="gameTitle" class="title">لعبة سيجة السودانية</div>
+          <div id="gameSub" class="subtitle">Sudanese Seega Game — v1.0</div>
         </div>
+      </div>
 
-        <div class="controls">
-          <label for="langSelect" id="langLabel">اللغة</label>
-          <select id="langSelect" aria-label="language">
-            <option value="ar">العربية</option>
-            <option value="en">English</option>
-          </select>
+      <div class="controls-bar">
+        <select id="langSelect" aria-label="language" class="control">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+        </select>
 
-          <label for="difficulty" id="diffLabel">درجة الصعوبة</label>
-          <select id="difficulty" aria-label="difficulty">
-            <option value="easy">سهل / Easy</option>
-            <option value="medium" selected>متوسط / Medium</option>
-            <option value="hard">صعب / Hard</option>
-          </select>
+        <select id="diffSelect" class="control">
+          <option value="easy">سهل / Easy</option>
+          <option value="medium" selected>متوسط / Medium</option>
+          <option value="hard">صعب / Hard</option>
+        </select>
 
-          <button id="startBtn" class="btn">ابدأ / Start</button>
+        <button id="aiToggle" class="control toggle">AI: On</button>
+        <button id="soundToggle" class="control toggle">Sound: On</button>
+        <button id="undoBtn" class="control">↩️ Undo</button>
+        <button id="resetBtn" class="control">🔄 Reset</button>
+        <button id="startBtn" class="control primary">ابدأ / Start</button>
+      </div>
+    </header>
 
-          <button id="aiToggleBtn" class="btn toggle on" title="Toggle AI">AI: On</button>
-          <button id="soundToggleBtn" class="btn toggle on" title="Toggle Sound">Sound: On</button>
-        </div>
-      </header>
-
-      <section class="statusbar">
-        <div class="left-info">
-          <div class="player-info player-left">
-            <div class="dot black"></div>
-            <div class="player-name" id="p1name">اللاعب الأسود</div>
-            <div class="player-score" id="score1">22</div>
-            <div class="player-label" id="scoreLabel1">قطعة</div>
-          </div>
+    <main class="main">
+      <section class="status-row">
+        <div class="player-card left">
+          <div class="dot black"></div>
+          <div id="p1name" class="pname">اللاعب الأسود</div>
+          <div class="score-wrap"><div id="score1" class="score">22</div><div class="score-label" id="scoreLabel1">قطعة</div></div>
         </div>
 
         <div class="center-info">
-          <div id="turnInfo" class="turnInfo">دور: اللاعب الأسود</div>
+          <div id="turnInfo" class="turn">دور: اللاعب الأسود</div>
           <div id="hint" class="hint">اختر قطعة لتحريكها — ستُبرز الحركات المسموح بها</div>
         </div>
 
-        <div class="right-info">
-          <div class="player-info player-right">
-            <div class="dot white"></div>
-            <div class="player-name" id="p2name">اللاعب الأبيض</div>
-            <div class="player-score" id="score2">22</div>
-            <div class="player-label" id="scoreLabel2">قطعة</div>
-          </div>
+        <div class="player-card right">
+          <div class="dot white"></div>
+          <div id="p2name" class="pname">اللاعب الأبيض</div>
+          <div class="score-wrap"><div id="score2" class="score">22</div><div class="score-label" id="scoreLabel2">قطعة</div></div>
         </div>
       </section>
 
-      <main>
-        <div id="boardWrap" class="board-wrap">
-          <div id="board" class="board" aria-label="game board"></div>
-        </div>
+      <section id="boardArea" class="board-area">
+        <div id="board" class="board" aria-label="game board"></div>
+      </section>
 
-        <div class="legend">
-          <div><span class="leg-box legal"></span> <span id="legMove">حركة عادية</span></div>
-          <div><span class="leg-box capture"></span> <span id="legJump">قفزة/أكل</span></div>
-          <div><span class="leg-box selected"></span> <span id="legSel">قطعة مختارة</span></div>
-          <div><span class="leg-box xcell">X</span> <span id="legX">المربع المركزي</span></div>
-        </div>
+      <div class="legend">
+        <span><span class="box legal"></span> <span id="legMove">حركة عادية</span></span>
+        <span><span class="box capture"></span> <span id="legJump">قفزة / أكل</span></span>
+        <span><span class="box selected"></span> <span id="legSel">قطعة مختارة</span></span>
+        <span><span class="box xcell">X</span> <span id="legX">المربع المركزي</span></span>
+      </div>
 
-        <div class="instructions" id="instructionsBox">
-          <h3 id="howTitle">كيف تلعب</h3>
-          <ol id="howList">
-            <!-- سيتم تعبئتها ديناميكياً حسب اللغة -->
-          </ol>
+      <div class="instructions" id="instructions">
+        <h3 id="howTitle">كيف تلعب</h3>
+        <ol id="howList">
+          <!-- ديناميكي بحسب اللغة -->
+        </ol>
+        <div class="sound-desc" id="soundDesc">
+          <!-- وصف الأصوات -->
         </div>
-      </main>
+      </div>
+    </main>
 
-      <footer class="footer">
-        <div id="credit">تصميم: <a id="creditLink" href="mailto:merghanigasimosman@gmail.com">ميرغني أبوالقاسم عثمان</a></div>
-        <div id="disableNote" class="small">يمكنك كتم الأصوات بواسطة زر "Sound".</div>
-      </footer>
+    <footer class="footer">
+      <div class="credit">تصميم: <a href="mailto:merghanigasimosman@gmail.com">ميرغني أبوالقاسم عثمان</a></div>
+      <div class="note" id="autoResetNote">نظام: سيتم إعادة الضبط تلقائياً بعد انتهاء الجولة.</div>
+    </footer>
+  </div>
+
+  <div id="overlay" class="overlay hidden" role="dialog" aria-hidden="true">
+    <div class="overlay-card">
+      <div id="overlayMsg" class="overlay-msg">🏆 انتهت اللعبة — الفائز: ...</div>
+      <div id="countdown" class="countdown">إعادة التشغيل خلال 5</div>
+      <button id="cancelReset" class="control">إلغاء الإعادة</button>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-                                  </html>
+                                    </html>
