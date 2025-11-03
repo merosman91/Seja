@@ -10,27 +10,34 @@
   <div class="outer">
     <div class="wrap">
       <header class="topbar">
-        <h1>🎮 السيجة السودانية</h1>
+        <h1 id="title">🎮 السيجة السودانية</h1>
+
         <div class="controls">
-          <label for="difficulty">درجة الصعوبة</label>
-          <select id="difficulty">
-            <option value="easy">سهل</option>
-            <option value="medium" selected>متوسط</option>
-            <option value="hard">صعب</option>
+          <label for="langSelect" id="langLabel">اللغة</label>
+          <select id="langSelect" aria-label="language">
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
           </select>
 
-          <button id="startBtn">ابدأ / إعادة</button>
-          <button id="swapBtn" title="تبديل اللعب محلي / ضد الكمبيوتر">العب محليًا</button>
+          <label for="difficulty" id="diffLabel">درجة الصعوبة</label>
+          <select id="difficulty">
+            <option value="easy">سهل / Easy</option>
+            <option value="medium" selected>متوسط / Medium</option>
+            <option value="hard">صعب / Hard</option>
+          </select>
 
-          <label class="sound-label"><input type="checkbox" id="soundToggle" checked> تشغيل الأصوات</label>
+          <button id="startBtn">ابدأ / Start</button>
+          <button id="swapBtn" title="Toggle local / vs computer">العب محليًا / Local</button>
+
+          <label class="sound-label"><input type="checkbox" id="soundToggle" checked> <span id="soundLabel">تشغيل الأصوات</span></label>
         </div>
       </header>
 
       <section class="statusbar">
         <div class="player p-left">
           <div class="dot black"></div>
-          <div class="name">اللاعب الأسود</div>
-          <div class="score"><span id="score1">22</span> قطعة</div>
+          <div class="name" id="p1name">اللاعب الأسود</div>
+          <div class="score"><span id="score1">22</span> <span id="piecesLabel">قطعة</span></div>
         </div>
 
         <div class="center">
@@ -40,41 +47,41 @@
 
         <div class="player p-right">
           <div class="dot white"></div>
-          <div class="name">اللاعب الأبيض</div>
-          <div class="score"><span id="score2">22</span> قطعة</div>
+          <div class="name" id="p2name">اللاعب الأبيض</div>
+          <div class="score"><span id="score2">22</span> <span id="piecesLabel2">قطعة</span></div>
         </div>
       </section>
 
       <main>
-        <div id="board" class="board" aria-label="لوح اللعبة"></div>
+        <div id="board" class="board" aria-label="game board"></div>
 
         <div class="legend">
-          <div><span class="leg-box legal"></span> حركة عادية</div>
-          <div><span class="leg-box capture"></span> حركة تؤدي لقفزة/أكل</div>
-          <div><span class="leg-box selected"></span> قطعة مختارة</div>
-          <div><span class="leg-box xcell">X</span> مربع فاصل (لا تتحرك إليه)</div>
+          <div><span class="leg-box legal"></span> <span id="legMove">حركة عادية</span></div>
+          <div><span class="leg-box capture"></span> <span id="legJump">حركة تؤدي لقفزة/أكل</span></div>
+          <div><span class="leg-box selected"></span> <span id="legSel">قطعة مختارة</span></div>
+          <div><span class="leg-box xcell">X</span> <span id="legX">مربع مركزي</span></div>
         </div>
 
-        <div class="instructions">
-          <h3>كيف تلعب</h3>
-          <ol>
-            <li>في البداية لكل لاعب 22 قطعة (صفين كاملين من 9 قطع ثم صف ثالث 4 قطع).</li>
-            <li>اللوح مكوّن من 9 أعمدة × 5 صفوف والمربع الأوسط في الصف الثالث مميّز بعلامة X ويفصل بين اللاعبين.</li>
-            <li>يمكنك التحرك في **الأربع اتجاهات فقط** (أعلى/أسفل/يمين/يسار) إلى مربع فارغ مجاور.</li>
-            <li>**قواعد الأكل (قفزة):** إذا كانت أمام قطعتك قطعة خصم ملاصقة (لا يوجد مربع فارغ بينكما) **والمربع الذي خلف قطعة الخصم فارغ** → يمكنك القفز فوق قطعة الخصم والهبوط في ذلك المربع الفارغ، فتُزال قطعة الخصم.</li>
-            <li>إذا بعد القفزة الجديدة كان هنالك إمكانيات قفز إضافية من موقعك الجديد، تُنفّذ القفزات المتتالية تلقائياً في نفس الدور حتى تنتهي الإمكانيات.</li>
-            <li>الفائز: من يبقى لديه قطع بينما يخسر الخصم جميع قطعه، أو عندما لا تبقى حركات.</li>
+        <div class="instructions" id="instructionsBox">
+          <h3 id="howTitle">كيف تلعب</h3>
+          <ol id="howList">
+            <li>في البداية لكل لاعب 22 قطعة (صفان كاملان من 9 قطع ثم صف ثالث 4 قطع).</li>
+            <li>اللوح مكوّن من 9 أعمدة × 5 صفوف والمربع الأوسط في الصف الثالث يحمل علامة X ويمثل المركز.</li>
+            <li>التحرك في **أربع اتجاهات فقط** (أعلى/أسفل/يسار/يمين) إلى مربع فارغ مجاور.</li>
+            <li><strong>قواعد الأكل (قفزة):</strong> إذا كانت أمام قطعتك قطعة خصم ملاصقة (لا توجد خانة فارغة بينكما) وخلف قطعة الخصم مربع فارغ → يمكنك القفز إلى ذلك المربع الفارغ وإزالة قطعة الخصم.</li>
+            <li>بعد القفزة، إن توفرت قفزات إضافية من موقعك الجديد فستُنفَّذ تلقائيًا في نفس الدور.</li>
+            <li>الفائز: من يبقى لديه قطع أو عندما لا تبقى حركات.</li>
           </ol>
         </div>
       </main>
 
       <footer class="footer">
-        <div>تصميم: <a href="mailto:merghanigasimosman@gmail.com">ميرغني أبوالقاسم عثمان</a></div>
-        <div class="small">يمكنك تعطيل الأصوات من خانة "تشغيل الأصوات" أعلاه.</div>
+        <div id="credit">تصميم: <a href="mailto:merghanigasimosman@gmail.com" id="creditLink">ميرغني أبوالقاسم عثمان</a></div>
+        <div class="small" id="disableNote">يمكنك تعطيل الأصوات من خانة "تشغيل الأصوات" أعلاه.</div>
       </footer>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-                                   </html>
+            </html>
