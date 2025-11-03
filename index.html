@@ -3,73 +3,78 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>السيجة — لعبة سودانية</title>
+  <title>السيجة — لعبة سودانية (9×5)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="wrap">
-    <header class="topbar">
-      <h1>🎮 السيجة السودانية</h1>
-      <div class="controls">
-        <label for="difficulty">درجة الصعوبة</label>
-        <select id="difficulty">
-          <option value="easy">سهل</option>
-          <option value="medium" selected>متوسط</option>
-          <option value="hard">صعب</option>
-        </select>
+  <div class="outer">
+    <div class="wrap">
+      <header class="topbar">
+        <h1>🎮 السيجة السودانية</h1>
+        <div class="controls">
+          <label for="difficulty">درجة الصعوبة</label>
+          <select id="difficulty">
+            <option value="easy">سهل</option>
+            <option value="medium" selected>متوسط</option>
+            <option value="hard">صعب</option>
+          </select>
 
-        <button id="startBtn">ابدأ / إعادة</button>
-        <button id="swapBtn" title="تبديل اللعب محلي / ضد الكمبيوتر">العب محليًا</button>
+          <button id="startBtn">ابدأ / إعادة</button>
+          <button id="swapBtn" title="تبديل اللعب محلي / ضد الكمبيوتر">العب محليًا</button>
 
-        <label class="sound-label"><input type="checkbox" id="soundToggle" checked> تشغيل الأصوات</label>
-      </div>
-    </header>
+          <label class="sound-label"><input type="checkbox" id="soundToggle" checked> تشغيل الأصوات</label>
+        </div>
+      </header>
 
-    <section class="statusbar">
-      <div class="player p-left">
-        <div class="dot black"></div>
-        <div class="name">اللاعب الأسود</div>
-        <div class="score"><span id="score1">10</span> قطعة</div>
-      </div>
+      <section class="statusbar">
+        <div class="player p-left">
+          <div class="dot black"></div>
+          <div class="name">اللاعب الأسود</div>
+          <div class="score"><span id="score1">22</span> قطعة</div>
+        </div>
 
-      <div class="center">
-        <div id="turnInfo">دور: اللاعب الأسود</div>
-        <div id="hint" class="hint">اختر قطعة لتحريكها — سيتم تمييز الخانات المسموح بها</div>
-      </div>
+        <div class="center">
+          <div id="turnInfo">دور: اللاعب الأسود</div>
+          <div id="hint" class="hint">اختر قطعة لتحريكها — سيتم تمييز الخانات المسموح بها</div>
+        </div>
 
-      <div class="player p-right">
-        <div class="dot white"></div>
-        <div class="name">اللاعب الأبيض</div>
-        <div class="score"><span id="score2">10</span> قطعة</div>
-      </div>
-    </section>
+        <div class="player p-right">
+          <div class="dot white"></div>
+          <div class="name">اللاعب الأبيض</div>
+          <div class="score"><span id="score2">22</span> قطعة</div>
+        </div>
+      </section>
 
-    <main>
-      <div id="board" class="board"></div>
+      <main>
+        <div id="board" class="board" aria-label="لوح اللعبة"></div>
 
-      <div class="legend">
-        <div><span class="leg-box legal"></span> حركة مسموح بها</div>
-        <div><span class="leg-box capture"></span> حركة تؤدي إلى أكل</div>
-        <div><span class="leg-box selected"></span> قطعة مختارة</div>
-      </div>
+        <div class="legend">
+          <div><span class="leg-box legal"></span> حركة عادية</div>
+          <div><span class="leg-box capture"></span> حركة تؤدي لقفزة/أكل</div>
+          <div><span class="leg-box selected"></span> قطعة مختارة</div>
+          <div><span class="leg-box xcell">X</span> مربع فاصل (لا تتحرك إليه)</div>
+        </div>
 
-      <div class="instructions">
-        <h3>كيف تلعب</h3>
-        <ol>
-          <li>اختر قطعة من اللون الخاص بك (الأسود أو الأبيض).</li>
-          <li>يمكنك التحرك إلى مربع مجاور في أحد الاتجاهات الأربعة (أعلى/أسفل/يمين/يسار).</li>
-          <li>إذا نقلت قطعتك إلى مربع فارغ وكان في نفس الاتجاه مربع بعده يحتوي على قطعة للخصم → تُؤكل تلك القطعة.</li>
-          <li>الفائز هو من يبقى معه قطع بينما ينتهي لدى الخصم جميع القطع.</li>
-        </ol>
-      </div>
-    </main>
+        <div class="instructions">
+          <h3>كيف تلعب</h3>
+          <ol>
+            <li>في البداية لكل لاعب 22 قطعة (صفين كاملين من 9 قطع ثم صف ثالث 4 قطع).</li>
+            <li>اللوح مكوّن من 9 أعمدة × 5 صفوف والمربع الأوسط في الصف الثالث مميّز بعلامة X ويفصل بين اللاعبين.</li>
+            <li>يمكنك التحرك في **الأربع اتجاهات فقط** (أعلى/أسفل/يمين/يسار) إلى مربع فارغ مجاور.</li>
+            <li>**قواعد الأكل (قفزة):** إذا كانت أمام قطعتك قطعة خصم ملاصقة (لا يوجد مربع فارغ بينكما) **والمربع الذي خلف قطعة الخصم فارغ** → يمكنك القفز فوق قطعة الخصم والهبوط في ذلك المربع الفارغ، فتُزال قطعة الخصم.</li>
+            <li>إذا بعد القفزة الجديدة كان هنالك إمكانيات قفز إضافية من موقعك الجديد، تُنفّذ القفزات المتتالية تلقائياً في نفس الدور حتى تنتهي الإمكانيات.</li>
+            <li>الفائز: من يبقى لديه قطع بينما يخسر الخصم جميع قطعه، أو عندما لا تبقى حركات.</li>
+          </ol>
+        </div>
+      </main>
 
-    <footer class="footer">
-      <div>تصميم: <a href="mailto:merghanigasimosman@gmail.com">ميرغني أبوالقاسم عثمان</a></div>
-      <div class="small">يمكنك تعطيل الأصوات من خانة "تشغيل الأصوات" أعلاه.</div>
-    </footer>
+      <footer class="footer">
+        <div>تصميم: <a href="mailto:merghanigasimosman@gmail.com">ميرغني أبوالقاسم عثمان</a></div>
+        <div class="small">يمكنك تعطيل الأصوات من خانة "تشغيل الأصوات" أعلاه.</div>
+      </footer>
+    </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-          </html>
+                                   </html>
